@@ -6,13 +6,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil - {{ usuario.user.username }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0b2545, #1b3b6f);
+            font-family: 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        .card {
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            color: #0b2545;
+        }
+
+        .btn-outline-primary {
+            border-radius: 10px;
+            border-color: #1a8f00;
+            color: #1a8f00;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: #1a8f00;
+            color: #fff;
+        }
+
+        .btn-warning {
+            border-radius: 10px;
+        }
+
+        .btn-danger {
+            border-radius: 10px;
+        }
+
+        h1, h2 {
+            color: #fff;
+        }
+
+        h5 {
+            color: #0b2545;
+        }
+
+        .section-title {
+            border-bottom: 2px solid #1a8f00;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+        }
+
+        .navbar {
+            background-color: #1a8f00 !important;
+        }
+
+        .navbar .btn-outline-light {
+            border-radius: 10px;
+        }
+    </style>
 </head>
-<body class="bg-light">
+<body>
 
 <!-- HEADER -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
-        <a class="navbar-brand" href="{% url 'home' %}">LIB</a>
+        <a class="navbar-brand fw-bold" href="{% url 'home' %}">LIB</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ms-auto">
                 {% if user.is_authenticated %}
@@ -33,6 +88,7 @@
 </nav>
 
 <div class="container py-5">
+
     <!-- INFORMACIÓN DEL USUARIO -->
     <div class="text-center mb-5">
         <h1 class="fw-bold">Bienvenido de nuevo {{ usuario.user.username }}</h1>
@@ -42,7 +98,7 @@
     </div>
 
     <!-- APUNTES SUBIDOS -->
-    <h2 class="mb-4">Apuntes subidos</h2>
+    <h2 class="section-title">Apuntes subidos</h2>
     <div class="row g-4">
         {% for apunte in apuntes %}
         <div class="col-md-4">
@@ -65,12 +121,12 @@
             </div>
         </div>
         {% empty %}
-        <p class="text-center">No se encontraron apuntes subidos por este usuario.</p>
+        <p class="text-center text-white">No se encontraron apuntes subidos por este usuario.</p>
         {% endfor %}
     </div>
 
     <!-- APUNTES COMPARTIDOS -->
-    <h2 class="mt-5 mb-4">Apuntes compartidos a {{ usuario.user.username }}</h2>
+    <h2 class="section-title mt-5">Apuntes compartidos a {{ usuario.user.username }}</h2>
     <div class="row g-4">
         {% for compartido in apuntes_compartidos %}
         <div class="col-md-4">
@@ -91,9 +147,10 @@
             </div>
         </div>
         {% empty %}
-        <p class="text-center">No hay apuntes compartidos a este usuario.</p>
+        <p class="text-center text-white">No hay apuntes compartidos a este usuario.</p>
         {% endfor %}
     </div>
+
 </div>
 
 </body>

@@ -1,11 +1,165 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LIB - Inicio</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #0b2545, #1b3b6f);
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .navbar {
+      background-color: #1a8f00 !important;
+    }
+    .navbar .nav-link {
+      color: #fff !important;
+      font-weight: 500;
+    }
+
+    h1, h2, h3, h4 {
+      color: #fff;
+    }
+
+    .search-box input.form-control {
+      border-radius: 10px;
+      padding: 0.75rem;
+      border: none;
+    }
+
+    .search-box .btn {
+      border-radius: 10px;
+    }
+
+    .btn-buscar {
+      background-color: #1a8f00;
+      color: #fff;
+      font-weight: 600;
+      border-radius: 10px;
+      padding: 0.75rem 2rem;
+    }
+
+    .btn-buscar:hover {
+      background-color: #147200;
+    }
+
+    .sobre-nosotros .pill {
+      background-color: #fff;
+      color: #1a8f00;
+      font-weight: 500;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      margin: 0.2rem;
+      display: inline-block;
+    }
+
+    .stat-card {
+      background-color: #fff;
+      color: #0b2545;
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+
+    .cta-card {
+      background-color: rgba(255,255,255,0.1);
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      color: #fff;
+    }
+
+    .cta-card a.btn {
+      border-radius: 10px;
+    }
+
+    .hero-img {
+      max-width: 450px;
+      border-radius: 15px;
+      box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+    }
+
+    .container.hero-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      padding: 4rem 0;
+    }
+
+    .hero-text {
+      max-width: 500px;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
+
+
+
+  <!-- Hero Section -->
+  <div class="container hero-section">
+    <div class="hero-text">
+      <h1>Bienvenido a LIB</h1>
+      <p>Tu comunidad de apuntes y debates universitarios. Aprende, comparte y crece junto a miles de estudiantes y profesores.</p>
+
+      <div class="search-box mt-4">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="¿De qué quieres aprender hoy?">
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <a href="{% url 'home' %}" class="btn btn-buscar">a un click de distancia</a>
+      </div>
+    </div>
+
+    <div>
+      <img src="https://media.istockphoto.com/id/585488832/es/foto/escribir-en-el-primer-plano-de-la-computadora-port%C3%A1til-chatear-en-facebook.jpg?s=612x612&w=0&k=20&c=WvjS2Dt1GeXHaPbTPMbDvnB9JZ52qxZvSuIzviPHij4=" class="hero-img" alt="escribiendo">
+    </div>
+  </div>
+
+  <!-- Sección Sobre Nosotros -->
+  <section id="sobre-nosotros" class="sobre-nosotros py-5">
+    <div class="container text-center">
+      <h2 class="text-uppercase mb-4">Sobre nosotros</h2>
+      <p class="lead mb-4">
+        LIB es la comunidad de apuntes y debates universitarios que une a estudiantes y profesores de todas las universidades. Aquí guardas, versionas y discutes tus apuntes, resúmenes y guías con miles de mentes curiosas.
+      </p>
+
+      <div class="d-flex flex-wrap justify-content-center mb-4">
+        <span class="pill">+35k apuntes</span>
+        <span class="pill">Gratuita</span>
+        <span class="pill">Profes y alumnos</span>
+        <span class="pill">repasos</span>
+        <span class="pill">Apuntes de calidad</span>
+        <span class="pill">+100K registrados ya faltas TU</span>
+      </div>
+
     
+
+      <div class="cta-card d-md-flex align-items-center justify-content-between mt-5">
+        <div class="mb-3 mb-md-0">
+          <h4>Únete a la conversación</h4>
+          <p class="mb-0">Crea tu perfil encuentra cosas interesantes y postea apuntes lee los de tus compañeros mas 100k de personas ya confian en nostros te estamos esperando</p>
+        </div>
+        <div class="text-md-end">
+          {% if user.is_authenticated %}
+              <a href="{% url 'home' %}" class="btn btn-danger me-2">ir a home</a>
+          {% else %}
+              <a href="{% url 'login' %}" class="btn btn-secondary me-2">Iniciar sesión</a>
+              <a class="btn btn-light mt-1" href="{% url 'agregar_usuario' %}">Crear cuenta</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+
 </body>
 </html>

@@ -139,5 +139,6 @@ MEDIA_ROOT = BASE_DIR / 'media'  # Carpeta física donde se guardarán los archi
 
 
 
-X_FRAME_OPTIONS = "SAMEORIGIN" #para q el iframe funcione
+X_FRAME_OPTIONS = 'ALLOWALL'
+
  

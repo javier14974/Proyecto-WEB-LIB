@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.db.models import Avg
-
+from django.http import FileResponse, Http404
 
 def login_view(request):
     if request.method == 'POST':
@@ -102,13 +102,21 @@ def detalle_apunte(request, apunte_id):
             defaults={"calificacion": calificacion},
         )
         return redirect("detalle_apunte", apunte_id=apunte.id)
-
     return render(request, "template/detalle_apunte.html", {
         "apunte": apunte,
         "promedio": promedio,
         "usuario": usuario,
     })
 
+
+def pdf_apunte(request, apunte_id):
+    apunte = get_object_or_404(Apunte, id=apunte_id)
+
+    ruta = apunte.archivo.path
+    response = FileResponse(open(ruta, 'rb'), content_type='application/pdf')
+    response['Content-Disposition'] = f'inline; filename="{os.path.basename(ruta)}"'
+    response['X-Frame-Options'] = 'SAMEORIGIN'
+    return response
 
 
 def home(request): #filtro
@@ -171,3 +179,8 @@ def editar_apunte(request, apunte_id):
         return redirect('home')  
 
     return render(request, 'template/subir_apunte.html', {'form': form, 'editar': True})
+
+
+
+def nosotros(request):
+    return render(request, "template/nosotros.html")

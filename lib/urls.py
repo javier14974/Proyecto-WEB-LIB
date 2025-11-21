@@ -31,6 +31,8 @@ urlpatterns = [
     path('perfil/<int:usuario_id>/', perfil_vista, name='perfil_vista'),
     path('eliminar_apunte/<int:apunte_id>',eliminar_apunte, name='eliminar_apunte'),
     path('editar_apunte/<int:apunte_id>',editar_apunte, name='editar_apunte'),
+    path("apunte/<int:apunte_id>/pdf/", pdf_apunte, name="pdf_apunte"),
+    path("nosotros/", nosotros, name="nosotros"),
 ]
 
 

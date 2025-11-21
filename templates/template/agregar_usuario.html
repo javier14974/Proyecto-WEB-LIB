@@ -1,18 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>registrar alumno/estudiante  (no terminado)</title>
+    <title>Registrar alumno/estudiante</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #0b2545; /* azul marino */
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 600px;
+            background-color: #ffffff;
+        }
+
+        h1 {
+            color: #ffffff;
+        }
+
+        .btn-success {
+            background-color: #1a8f00;
+            border-color: #1a8f00;
+        }
+
+        .btn-success:hover {
+            background-color: #147200;
+            border-color: #147200;
+        }
+
+        .btn-outline-primary {
+            color: #ffffff;
+            border-color: #ffffff;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: #ffffff;
+            color: #0b2545;
+        }
+
+        .text-danger {
+            font-weight: 500;
+        }
+    </style>
 </head>
-<body class="bg-light">
-    <div class="container py-5">
+<body>
+    <div class="container">
         <div class="text-center mb-4">
-            <h1 class="display-5 fw-bold text-primary">registro</h1>
+            <h1 class="display-5 fw-bold">Registro</h1>
         </div>
 
-        <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+        <div class="card shadow-sm mx-auto">
             <div class="card-body">
                 <form method="POST" novalidate>
                     {% csrf_token %}
@@ -26,11 +72,12 @@
             </div>
         </div>
 
-            {% if form.email.errors %}
-                    <div class="text-danger">
-                        {{ form.correo.errors }}
-                    </div>
-            {% endif %}
+        {% if form.email.errors %}
+            <div class="text-danger mt-2 text-center">
+                {{ form.email.errors }}
+            </div>
+        {% endif %}
+
         <div class="text-center mt-4">
             <a href="{% url 'home' %}" class="btn btn-outline-primary m-2">Volver al inicio</a>
         </div>
