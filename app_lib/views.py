@@ -83,6 +83,7 @@ def logout_vista(request):
 
 
 
+
 def detalle_apunte(request, apunte_id):
     apunte = get_object_or_404(Apunte, id=apunte_id)
 
@@ -145,6 +146,7 @@ def home(request): #filtro
 
 
 
+@login_required
 def perfil_vista(request, usuario_id):
     # Obtener el usuario
     usuario = get_object_or_404(Usuario, id=usuario_id)
@@ -161,12 +163,14 @@ def perfil_vista(request, usuario_id):
 
 
 
+@login_required
 def eliminar_apunte(request, apunte_id):
     apunte = get_object_or_404(Apunte, id=apunte_id)
     apunte.delete()
     return redirect('home')
 
 
+@login_required
 def editar_apunte(request, apunte_id):
     # Obtener el docente a editar
     apunte = get_object_or_404(Apunte, id=apunte_id)
