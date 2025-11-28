@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compartir apunte</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+</head>
+
+<body class="text-white min-vh-100 d-flex align-items-start justify-content-center pt-5"
+      style="background: linear-gradient(135deg, #0b2545, #1b3b6f);">
+
+<div class="container" style="max-width: 750px;">
+    
+    <h1 class="mb-4 fw-bold text-center text-white">
+        <i class="bi bi-share-fill me-2"></i>Compartir Apunte
+    </h1>
+
+    <div class="card p-4 rounded-4 shadow-lg bg-white text-dark border-0">
+        
+        {% if apunte_actual %}
+            <div class="alert alert-info rounded-3 mb-4 fw-semibold">
+                **Apunte a compartir:** {{ apunte_actual.titulo }}
+            </div>
+        {% else %}
+            <p class="text-danger fw-bold mb-4">⚠ No se recibió el apunte.</p>
+        {% endif %}
+
+        <form method="get" class="mb-4 d-flex gap-2 align-items-center">
+            <input type="hidden" name="apunte_id" value="{{ apunte_actual.id }}">
+            <input type="text" name="username" placeholder="Buscar usuario..."
+                   value="{{ username }}" class="form-control form-control-lg rounded-3 shadow-sm" required>
+            <button type="submit" class="btn btn-success btn-lg rounded-3 fw-bold flex-shrink-0">
+                <i class="bi bi-search"></i> Buscar
+            </button>
+        </form>
+
+        <hr class="my-4">
+
+        {% if nombre_filtrado %}
+            <h5 class="mb-3 text-dark fw-bold">Resultados de la búsqueda:</h5>
+            <ul class="list-group rounded-3 shadow">
+                {% for u in nombre_filtrado %}
+                <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                    <span class="fs-5 fw-semibold">{{ u.user.username }}</span>
+
+                    <a href="{% url 'hacer_compartido' apunte_actual.id u.id %}"
+                       class="btn btn-primary rounded-3 fw-bold">
+                        <i class="bi bi-person-plus-fill me-1"></i> Compartir
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+
+        {% else %}
+            {% if username %}
+                <div class="alert alert-warning text-center rounded-3">
+                    No se encontraron usuarios con el nombre **"{{ username }}"**.
+                </div>
+            {% else %}
+                <p class="text-muted text-center">Ingresa un nombre de usuario para comenzar la búsqueda.</p>
+            {% endif %}
+        {% endif %}
+        
+        <div class="mt-4 text-center">
+            {% if user.is_superuser %}
+                    <a href="{% url 'admin_home' %}" class="btn btn-outline-secondary rounded-3 fw-bold">
+                        ← Volver a home
+                    </a>
+                {% else %}
+                    <a href="{% url 'home' %}" class="btn btn-outline-secondary rounded-3 fw-bold">
+                        ← Volver a home
+                    </a>
+                {% endif %}
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+

@@ -3,10 +3,13 @@ from .models import *
 from django.contrib.auth.models import User
 import zipfile, re, magic, os
 
+
+texto_malo = re.compile(r'^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s-]+$')
+
 class registrarUsuario(forms.ModelForm):
     username = forms.CharField(label='nombre')
     password = forms.CharField(widget=forms.PasswordInput, label='contraseña')
-    email = forms.CharField(label='correo')
+    email = forms.EmailField(label='correo')
 
     class Meta:
         model = Usuario
@@ -22,6 +25,17 @@ class registrarUsuario(forms.ModelForm):
             raise forms.ValidationError("Este usuario ya existe.")
 
         return username
+    
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+
+        if email:
+            email = email.lower()
+
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("Este gmail ya existe")
+
+        return email
 
     def clean(self):
         cleaned_data = super().clean()
@@ -46,7 +60,7 @@ class registrarUsuario(forms.ModelForm):
             )
             self.instance.user = user  # asigna el User creado
         else:
-            # Para edición
+           
             self.instance.user.email = self.cleaned_data.get('email', self.instance.user.email)
             self.instance.user.save()
 
@@ -59,9 +73,12 @@ class registrarUsuario(forms.ModelForm):
 
 
 class subir_apuntes_forms(forms.ModelForm):
+    
     class Meta:
         model = Apunte
         fields = ['titulo', 'descripcion', 'archivo', 'asignatura', 'carrera']
+
+        
 
     def clean(self):
         cleaned_data = super().clean()
@@ -119,3 +136,9 @@ class subir_apuntes_forms(forms.ModelForm):
                     raise forms.ValidationError("El archivo no coincide con su extensión.")
 
             return archivo
+    
+    
+class formulario_admin(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput)
+

@@ -33,6 +33,16 @@ urlpatterns = [
     path('editar_apunte/<int:apunte_id>',editar_apunte, name='editar_apunte'),
     path("apunte/<int:apunte_id>/pdf/", pdf_apunte, name="pdf_apunte"),
     path("nosotros/", nosotros, name="nosotros"),
+
+    path("compartir/<int:apunte_id>/", compartir_apunte, name="compartir_apunte"),
+    path("compartir/<int:apunte_id>/<int:usuario_id>/hacer/", hacer_compartido, name="hacer_compartido"),
+
+    path('eliminar_compartido/<int:apunte_id>/', eliminar_compartido, name='eliminar_compartido'),
+
+    path('login_admin/', login_admin, name='login_admin'),
+    path('admin_home/', admin_home, name='admin_home'),
+    path('todos_usuarios/', todos_usuarios, name='todos_usuarios'),
+    path('eliminar_usuario/<int:usuario_id>/', eliminar_usuario, name='eliminar_usuario')
 ]
 
 

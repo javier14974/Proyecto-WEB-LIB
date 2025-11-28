@@ -1,86 +1,53 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar alumno/estudiante</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <style>
-        body {
-            background-color: #0b2545; /* azul marino */
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-        }
-
-        .card {
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            width: 100%;
-            max-width: 600px;
-            background-color: #ffffff;
-        }
-
-        h1 {
-            color: #ffffff;
-        }
-
-        .btn-success {
-            background-color: #1a8f00;
-            border-color: #1a8f00;
-        }
-
-        .btn-success:hover {
-            background-color: #147200;
-            border-color: #147200;
-        }
-
-        .btn-outline-primary {
-            color: #ffffff;
-            border-color: #ffffff;
-        }
-
-        .btn-outline-primary:hover {
-            background-color: #ffffff;
-            color: #0b2545;
-        }
-
-        .text-danger {
-            font-weight: 500;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 </head>
-<body>
-    <div class="container">
+
+<body class="text-white min-vh-100 d-flex align-items-center justify-content-center py-5" 
+      style="background: linear-gradient(135deg, #0b2545, #1b3b6f);">
+
+    <div class="container" style="max-width: 600px;">
         <div class="text-center mb-4">
             <h1 class="display-5 fw-bold">Registro</h1>
         </div>
 
-        <div class="card shadow-sm mx-auto">
-            <div class="card-body">
+        <div class="card shadow-lg rounded-4 mx-auto bg-white text-dark">
+            <div class="card-body p-4 p-md-5">
                 <form method="POST" novalidate>
                     {% csrf_token %}
-                    <div class="mb-3">
+                    
+                    <div class="mb-4">
                         {{ form.as_p }}
                     </div>
-                    <div class="text-center">
-                        <input type="submit" value="{% if editar %}Guardar cambios{% else %}Registrar docente{% endif %}" class="btn btn-success btn-lg w-100">
+                    
+                    <div class="text-center mt-4">
+                        <input type="submit" 
+                               value="{% if editar %}Guardar cambios{% else %}Registrar docente{% endif %}" 
+                               class="btn btn-success btn-lg w-100 rounded-3 fw-bold shadow">
                     </div>
                 </form>
             </div>
         </div>
 
         {% if form.email.errors %}
-            <div class="text-danger mt-2 text-center">
+            <div class="text-danger mt-2 text-center fw-semibold">
                 {{ form.email.errors }}
             </div>
         {% endif %}
-
+        
         <div class="text-center mt-4">
-            <a href="{% url 'home' %}" class="btn btn-outline-primary m-2">Volver al inicio</a>
+            <a href="{% url 'home' %}" class="btn btn-outline-light btn-lg m-2 rounded-3 fw-bold">
+                <i class="bi bi-arrow-left-circle me-2"></i>Volver al inicio
+            </a>
         </div>
     </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -7,105 +7,56 @@
     <title>Subir Apunte</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <style>
-        body {
-            background-color: #0b2545; /* azul marino */
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-        }
-
-        .card {
-            border-radius: 15px;
-            max-width: 650px;
-            width: 100%;
-            background-color: #ffffff;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-        }
-
-        h1, h4, h6 {
-            color: #0b2545;
-        }
-
-        .form-label {
-            font-weight: 600;
-            color: #0b2545;
-        }
-
-        .btn-primary {
-            background-color: #1a8f00;
-            border-color: #1a8f00;
-        }
-
-        .btn-primary:hover {
-            background-color: #147200;
-            border-color: #147200;
-        }
-
-        .btn-outline-secondary {
-            color: #ffffff;
-            border-color: #ffffff;
-        }
-
-        .btn-outline-secondary:hover {
-            background-color: #ffffff;
-            color: #0b2545;
-        }
-
-        .text-danger {
-            font-weight: 500;
-        }
-    </style>
 </head>
 
-<body>
+<body class="d-flex flex-column justify-content-center align-items-center" 
+      style="background-color: #0b2545; min-height: 100vh; padding: 2rem;">
 
 <div class="container">
 
-    <!-- TÍTULO -->
     <div class="text-center mb-5">
-        <h1 class="fw-bold text-white">📄 Subir nuevo apunte</h1>
-        <p class="text-light">Rellena los campos y comparte tu apunte con la comunidad.</p>
+        <h1 class="fw-bold text-white display-4 mb-2">📄 Subir Nuevo Apunte</h1>
+        <p class="text-light fs-5">Rellena los campos y comparte tu material de estudio.</p>
     </div>
 
-    <!-- FORMULARIO -->
-    <div class="card shadow mx-auto p-4">
+    <div class="card shadow-lg mx-auto p-5 rounded-4 border-0" style="max-width: 650px;">
 
-        <h4 class="mb-4 text-center">Información del apunte</h4>
-        <h6 class="mb-4 text-center text-muted">Recordar que la descripción debe ser detallada</h6>
+        <h4 class="mb-4 text-center fw-bold text-success">Información Requerida</h4>
+        <h6 class="mb-4 text-center text-muted">Asegúrate de que la descripción sea detallada y el archivo sea legible.</h6>
         
-        <form method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
             
             {% for field in form %}
                 <div class="mb-4">
-                    <label class="form-label">{{ field.label }}</label>
-                    {{ field }}
+                    <label for="{{ field.id_for_label }}" class="form-label fw-bold text-dark">
+                        {{ field.label }}
+                    </label>
+                    
+                    {{ field }} 
+                    
                     {% if field.errors %}
-                        <div class="text-danger small">{{ field.errors }}</div>
+                        <div class="text-danger small mt-1 fw-semibold">{{ field.errors }}</div>
                     {% endif %}
                 </div>
             {% endfor %}
 
-            <div class="d-grid">
-                <button type="submit" class="btn btn-primary btn-lg">
-                    Subir apunte
+            <div class="d-grid mt-4">
+                <button type="submit" class="btn btn-success btn-lg rounded-3 fw-bold shadow">
+                    Subir y Compartir Apunte
                 </button>
             </div>
         </form>
     </div>
 
-    <!-- BOTÓN VOLVER -->
     <div class="text-center mt-4">
-        <a href="{% url 'home' %}" class="btn btn-outline-secondary">
+        <a href="{% url 'home' %}" class="btn btn-outline-light rounded-pill px-4 fw-bold shadow-sm">
             ← Volver al inicio
         </a>
     </div>
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
