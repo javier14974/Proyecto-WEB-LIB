@@ -64,10 +64,10 @@
                             {% if usuario_perfil %}
                                 <a href="{% url 'detalle_apunte' apunte.id %}" class="btn btn-outline-success rounded-3 fw-bold">Ver apunte</a>
                                 <a href="{% url 'editar_apunte' apunte_id=apunte.id %}" class="btn btn-warning rounded-3 fw-bold">Editar</a>
-                                <a href="{% url 'eliminar_apunte' apunte_id=apunte.id %}" class="btn btn-danger rounded-3 fw-bold">Eliminar</a>
+                                <a href="{% url 'eliminar_apunte' apunte_id=apunte.id %}" class="btn btn-danger rounded-3 fw-bold" onclick="return confirm('¿Estás seguro de eliminar este apunte?')">Eliminar</a>
                             {% else %}
                                 <a href="{% url 'detalle_apunte' apunte.id %}" class="btn btn-outline-success rounded-3 fw-bold">Ver apunte</a>
-                                <a href="{% url 'eliminar_apunte' apunte_id=apunte.id %}" class="btn btn-danger rounded-3 fw-bold">Eliminar</a>
+                                <a href="{% url 'eliminar_apunte' apunte_id=apunte.id %}" class="btn btn-danger rounded-3 fw-bold" onclick="return confirm('¿Estás seguro de eliminar este apunte?')">Eliminar</a>
                             {% endif %}
                         {% endwith %}
                     </div>
@@ -96,7 +96,7 @@
                     </p>
                     <div class="mt-auto d-grid gap-2">
                         <a href="{% url 'detalle_apunte' compartido.apunte.id %}" class="btn btn-outline-success rounded-3 fw-bold">Ver apunte</a>
-                        <a href="{% url 'eliminar_compartido' apunte_id=compartido.apunte.id %}" class="btn btn-outline-danger rounded-3 fw-bold">Eliminar compartido</a>
+                        <a href="{% url 'eliminar_compartido' apunte_id=compartido.apunte.id %}" class="btn btn-outline-danger rounded-3 fw-bold" onclick="return confirm('¿Estás seguro de eliminar este apunte?')">Eliminar compartido</a>
                     </div>
                 </div>
             </div>

@@ -42,10 +42,10 @@ def ruta_subida_imagen(instance, filename):
 class Apunte(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)  
 
-    titulo = models.CharField(max_length=20)
+    titulo = models.CharField(max_length=40)
     descripcion = models.TextField(blank=True, null=True, max_length=100)
-    carrera = models.TextField(blank=True, null=True, max_length=15)
-    asignatura = models.TextField(blank=True, null=True, max_length=15)
+    carrera = models.TextField(blank=True, null=True, max_length=30)
+    asignatura = models.TextField(blank=True, null=True, max_length=40)
     archivo = models.FileField(upload_to=ruta_subida_apuntes)
     imagen = models.ImageField(upload_to=ruta_subida_imagen, default="default_apunte.jpg")
     fecha_subida = models.DateTimeField(auto_now_add=True)

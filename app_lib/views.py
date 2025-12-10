@@ -8,13 +8,11 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.db.models import Avg
 from django.http import FileResponse, Http404
+from django.core.paginator import Paginator
 
 
 
 
-def home(request):
-    apuntes = Apunte.objects.all()  # todos los apuntes
-    return render(request, 'template/home.html', {'apuntes': apuntes})
 
 
 def agregar_usuario(request):
@@ -22,6 +20,7 @@ def agregar_usuario(request):
         form = registrarUsuario(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('login')
     else:
         form = registrarUsuario()
 
@@ -98,7 +97,12 @@ def home(request): #filtro
     if carrera:
         apuntes = apuntes.filter(carrera__icontains=carrera)
 
+    paginator = Paginator(apuntes, 3)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
     return render(request, "template/home.html", {
+        "page_obj": page_obj,
         "apuntes": apuntes,
         "nombre": nombre,
         "asignatura": asignatura,
@@ -166,8 +170,9 @@ def compartir_apunte(request, apunte_id):
     return render(request, "template/compartir.html", {
         "username": username,
         "nombre_filtrado": nombre_filtrado,
-        "apunte": apunte,
+        "apunte_actual": apunte,  # renombramos aquí
     })
+
 
 @login_required
 def hacer_compartido(request, apunte_id, usuario_id):
@@ -223,8 +228,7 @@ def detalle_apunte(request, apunte_id):
             # Si el perfil no existe, 'usuario' se queda en None y no se usa para calificar/guardar.
             pass 
 
-    # Guardar calificación
-    # 🔑 FIX: Solo si 'usuario' existe
+
     if request.method == "POST" and usuario: 
         calificacion = request.POST.get("calificacion")
         ApunteCalificacion.objects.update_or_create(
